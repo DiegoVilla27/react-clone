@@ -1,34 +1,37 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { cloneElement, ReactElement } from "react"
+import Hero from "./components/hero"
 
-function App() {
-  const [count, setCount] = useState(0)
+/**
+ * The main application component.
+ * 
+ * This example demonstrates the professional use of React's `cloneElement` function,
+ * which allows developers to clone an existing React element and override or extend
+ * its props dynamically without mutating the original element.
+ */
+function App(): JSX.Element {
+
+  /**
+   * Base React element of the `Hero` component.
+   * This element will be cloned and reused with different props.
+   */
+  const elementHero: ReactElement = <Hero name="Hulk" />
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div>
+      {/**
+       * Clones the `elementHero` React element and overrides the `name` prop
+       * while adding a new `power` prop.
+       * 
+       * This creates a new independent element with the specified modifications.
+       */}
+      {cloneElement(elementHero, { name: 'Batman', power: 100 })}
+
+      {/**
+       * Another example of cloning the same base element,
+       * this time modifying the `name` and `power` props to represent Superman.
+       */}
+      {cloneElement(elementHero, { name: 'Superman', power: 500 })}
+    </div>
   )
 }
 
